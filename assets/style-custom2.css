@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+    --top-bar-height: 45px;
+    --left-bar-width: 200px;
+    --border-color: #e0e0e0;
+    --border-dark-color: #c0c0c0;
+    --left-bar-selected-color: #3fdb7b;
+    --left-bar-child-selected-color: #96c5fa;
+    --left-bar-normal-color: #b1b1b1;
+    --left-bar-background-color: #42404e;
+}
+
+
+.core_container {
+    display: grid;
+    grid-template-columns: auto minmax(calc(100vw - var(--left-bar-width)), 100vw);
+    grid-template-rows: var(--top-bar-height) minmax(calc(100vh - var(--top-bar-height)), auto);
+    grid-template-areas:
+        "left header"
+        "left app";
+    row-gap: 0px;
+}
+
+
+.header_container {
+    grid-area: header;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    /* box-shadow: 0px 2px 0px 0px rgba(72, 72, 72, 0.2);
+    -webkit-box-shadow: 0px 2px 0px 0px rgba(72, 72, 72, 0.2);
+    -moz-box-shadow: 0px 2px 0px 0px rgba(72, 72, 72, 0.2); */
+    border-bottom: 1px solid var(--border-color);
+    z-index: 2;
+    display: flex;
+}
+
+
+.left_container {
+    transition: width 0.2s;
+    position: sticky !important;
+    top: 0;
+    left: 0;
+    background-color: var(--left-bar-background-color);
+    grid-area: left;
+    border-right: 1px solid var(--border-color);
+    width: var(--left-bar-width);
+    height: auto;
+}
+.logo_container {
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid var(--border-color);
+    height: var(--top-bar-height);
+    background-color: #ffffff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1;
+}
+.logo_container>.logo {
+    position: relative;
+    height: 28px;
+    width: 50%; 
+}
+
+
+.app_container {
+    grid-area: 'app';
+    position: relative;
+    min-height: calc(100vh - 50px) !important;
+    height: 50px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+}

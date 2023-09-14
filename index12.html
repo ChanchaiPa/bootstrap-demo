@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validate</title>
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1>สมัครสมาชิก</h1>
+                        <hr>
+                       
+                            <div class="mb-3">
+                                <label for="displayname" class="form-label">ชื่อแสดงผล</label>
+                                <input id ="displayname" name="displayname" type="text" class="form-control">
+                                <div class="invalid-feedback">กรุณาใส่ชื่อแสดงผล อย่างน้อย 2 ตัวอักษร</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">ชื่อผู้ใช้งาน</label>
+                                <input id ="username" name="username" type="text" class="form-control">
+                                <div class="invalid-feedback">กรุณาใส่ชื่อผู้ใช้งาน</div>
+                            </div> 
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input id ="email" name="email" type="text" class="form-control">
+                                <div class="invalid-feedback">กรุณาใส่Email Address</div>
+                            </div>  
+                            <div class="mb-3">
+                                <label for="telephone" class="form-label">เบอร์โทรศัพท์</label>
+                                <input id ="telephone" name="telephone" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <input type="radio" class="form-check-input" id="gender1" name="gender" value="male">
+                                <label class="form-check-label" for="gender1">ชาย</label>
+                                &nbsp;&nbsp;
+                                <input type="radio" class="form-check-input" id="gender2" name="gender" value="female">
+                                <label class="form-check-label" for="gender2">หญิง</label>   
+                                <div class="invalid-feedback">กรุณาเลือกเพศ</div>                             
+                            </div>    
+                            <button type="button" class="btn btn-primary" onclick="checkValidate()">สมัครสมาชิก</button>                                                                           
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/bootstrap.bundle.min.js"></script>      
+    <script>
+        // const registerForm = document.getElementById("registerForm"); 
+        // registerForm.addEventListener('submit', (event) => {
+        //     event.preventDefault();
+        //     registerForm.classList.add('was-validated');
+        //     alert('OK...');
+        // });
+        function checkValidate() { 
+            const displayname = document.getElementById("displayname");
+            displayname.classList.remove('is-invalid');
+            if (displayname.value.length < 2) 
+                displayname.classList.add('is-invalid');
+
+            const username = document.getElementById("username");
+            username.classList.remove('is-invalid');
+            if (username.value.length == 0) 
+                username.classList.add('is-invalid');    
+                
+            let genderVal = "";     
+            const gender = document.getElementsByName('gender')
+            for(i = 0; i < gender.length; i++) 
+                if (gender[i].checked)
+                    genderVal = gender[i].value;
+            console.log(genderVal);
+
+            const gender1 = document.getElementById("gender1");
+            const gender2 = document.getElementById("gender2");
+            gender1.classList.remove('is-invalid');
+            gender2.classList.remove('is-invalid');
+            if (genderVal == "") {
+                gender1.classList.add('is-invalid');  
+                gender2.classList.add('is-invalid'); 
+            }                
+        } 
+    </script>
+</body>
+</html>

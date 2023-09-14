@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button-Alert-Toast</title>
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <script defer src="assets/bootstrap.bundle.min.js"></script>  
+</head>
+<body>
+    <div class="container py-2">
+        <div class="btn-group btn-group-lg gap-1" >
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1">
+            <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" checked>
+            <label class="btn btn-outline-primary" for="btnradio2">Radio 2xxx</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3">
+            <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+
+            <div class="vr"></div>
+            <div class="btn-close"></div>
+        </div>  
+    </div>  
+    
+
+
+
+
+
+    <div class="container py-3">
+        <div id="alert" class="alert alert-success alert-dismissible fade" role="alert">  <!-- fade show -->
+            Simple sucess alert-check it out! <span id="countLabel"></span> วินาที
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div> 
+        <div id="alerts"></div>
+
+        <form id="timer">
+            <input id="count" type="number" min="1" max="10" value="3">
+            <input type="button" class="btn btn-primary" value="Start Timer" onclick="BasicClick()" />
+            <button class="btn btn-primary">Start Timers</button>
+            <button type="button" id="delall" class="btn btn-danger">Close Timers</button>
+        </form>
+
+        <script>
+            const timer = document.getElementById("timer");
+            const count = document.getElementById("count");
+            const countLabel = document.getElementById("countLabel");
+
+            function BasicClick() {
+				document.getElementById("alert").classList.remove("show"); 
+                setTimeout(() => { console.log(document.getElementById("alert"));
+                    document.getElementById("alert").classList.add("show");   
+                    countLabel.innerText = count.value;
+                }, count.value * 1000);  
+            }
+
+            const alerts = document.getElementById("alerts");
+            const delall = document.getElementById("delall");
+            function createAlertElement(countValue) {
+                alerts.innerHTML += `<div class="alert alert-success alert-dismissible fade show" role="alert">  
+                    Simple sucess alert-check it out! ${countValue} วินาที
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>`
+            } 
+
+            timer.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const countValue = count.value;
+                setTimeout(() => {
+                    createAlertElement(countValue);
+                }, countValue * 1000);
+            });
+            delall.addEventListener('click', (event) => {
+                //alerts.innerHTML = "";
+                const tmpAlerts = document.querySelectorAll("#alerts > .alert"); console.log(tmpAlerts);
+                for (const x of tmpAlerts) {
+                    const y = new bootstrap.Alert(x);
+                    y.close();
+                }
+            });
+        </script>
+    </div>
+
+
+
+
+
+    <div class="container py-3">
+        <form id="timer2">
+            <input id="count2" type="number" min="1" max="10" value="3">
+            <button class="btn btn-primary">Start Timers</button>
+            <button id="delall2" type="button" class="btn btn-danger">Close Timers</button>
+        </form>
+        <div id="toasts" class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+        <script>
+            const timer2 = document.getElementById("timer2");
+            const count2 = document.getElementById("count2");
+            const toasts = document.getElementById("toasts");
+            function createAlertElement2(countValue) {
+                const template = document.createElement('template');
+                template.innerHTML += `<div class="toast fade" data-bs-delay="10000" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto text-success">Success</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">Simple sucess alert-check it out! ${countValue} วินาที</div>
+                </div>`.trim()
+                const toast = template.content.firstChild;  toasts.append(toast);
+                const toastsB = new bootstrap.Toast(toast);
+                toastsB.show()
+            } 
+
+            timer2.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const countValue = count2.value;
+                setTimeout(() => {
+                    createAlertElement2(countValue);
+                }, countValue * 1000);
+            });
+        </script>
+    </div>
+
+
+
+</body>
+</html>
